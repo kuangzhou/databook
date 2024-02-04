@@ -4,7 +4,7 @@ project:
 book:
   title: "统计数据分析及可视化"
   author: "周旷"
-  date: "2024年春"
+  date: "2024/02/04"
   chapters:
     - index.qmd
     - intro.qmd
