@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "统计数据分析及可视化",
+    "title": "统计数据分析及可视化(讲义)",
     "section": "",
-    "text": "Preface\n统计数据分析及可视化（讲义）\n\nTidy数据处理框架\n统计数据分析\n可视化",
+    "text": "Preface\n\nTidy数据处理框架\n\nR base\nR Tidy\n\n统计数据分析\n\n参数估计\n假设检验\n回归分析\n\n可视化\n\n案例1：商业数据分析\n案例2：体育数据分析",
     "crumbs": [
       "Preface"
     ]
