@@ -4,19 +4,9 @@
     "href": "index.html",
     "title": "统计数据分析及可视化(讲义)",
     "section": "",
-    "text": "Preface\n\nTidy数据处理框架\n\nR base\nR Tidy\n\n统计数据分析\n\n参数估计\n假设检验\n回归分析\n\n可视化\n\n案例1：商业数据分析\n案例2：体育数据分析",
+    "text": "目录\n\nTidy数据处理框架\n\nR base\nR Tidy\n\n统计数据分析\n\n参数估计\n假设检验\n回归分析\n\n可视化\n\n案例1：商业数据分析\n案例2：体育数据分析",
     "crumbs": [
-      "Preface"
-    ]
-  },
-  {
-    "objectID": "intro.html",
-    "href": "intro.html",
-    "title": "1  Introduction",
-    "section": "",
-    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+      "目录"
     ]
   },
   {
@@ -32,21 +22,21 @@
   {
     "objectID": "summary.html",
     "href": "summary.html",
-    "title": "3  Summary",
+    "title": "3  课程总结",
     "section": "",
-    "text": "In summary, this book has no content whatsoever.",
+    "text": "参考资料(Wickham and Grolemund 2023)\n\n\n\n\nWickham, Çetinkaya-Rundel, Hadley, and Garrett Grolemund. 2023. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. R for Data Science: Import, Tidy, Transform, Visualize,; Model Data.",
     "crumbs": [
-      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Summary</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>课程总结</span>"
     ]
   },
   {
     "objectID": "references.html",
     "href": "references.html",
-    "title": "References",
+    "title": "参考资料",
     "section": "",
-    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "text": "Wickham, Çetinkaya-Rundel, Hadley, and Garrett Grolemund. 2023. R\nfor Data Science: Import, Tidy, Transform, Visualize, and Model\nData. R for Data Science: Import, Tidy, Transform, Visualize,;\nModel Data.",
     "crumbs": [
-      "References"
+      "参考资料"
     ]
   }
 ]
