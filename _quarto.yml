@@ -1,0 +1,27 @@
+project:
+  type: book
+
+book:
+  title: "统计数据分析及可视化"
+  author: "周旷"
+  date: "2024年春"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - hypothesis.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+    include-in-header:
+        text:
+            \usepackage{ctex}
+
+
+

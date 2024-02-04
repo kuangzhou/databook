@@ -1,0 +1,52 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "统计数据分析及可视化",
+    "section": "",
+    "text": "Preface\n统计数据分析及可视化\n\n数据分析\n可视化",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "hypothesis.html",
+    "href": "hypothesis.html",
+    "title": "2  假设检验",
+    "section": "",
+    "text": "2.0.1 第一类错误\n\n拒真概率： 当原假设为真时，检验统计量落入拒绝域的概率 \\[P(X \\in W |H_0=TRUE)\\]\n\\(\\alpha\\)\n\n\n\n2.0.2 第二类错误\n\n取伪概率：当备择假设为真时，检验统计量未落入拒绝域的概率\n\n\\[P(X \\notin W |H_1=TRUE)\\]\n\n\\(\\beta\\)\n假验的效能：正确接受备择假设的概率 \\[(1-\\beta) \\times 100\\%\\]\n\n\n\n2.0.3 \\(p\\)值\n\n\n2.0.4 样本量\n\n效能分析：决定统计学检验的效能和计算揭示一定大小效应所需要的最小样本量\n\n\\(\\alpha\\): 第一类错误概率\n\\(\\beta\\): 第二类错误概率\n\\(d\\): 效应的大小，即所研究的效应相对样本的标准差\\(\\sigma\\)的大小\n\\(n\\): 样本大小\n\n上面四个参数，只要固定三个，就可以确定剩余参数的值",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>假设检验</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "3  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Summary</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "References"
+    ]
+  }
+]
