@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>统计数据分析及可视化(讲义) - 2&nbsp; 假设检验</title>
+<title>统计数据分析及可视化(讲义) - 6&nbsp; 假设检验</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -31,7 +31,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./summary.html" rel="next">
-<link href="./intro.html" rel="prev">
+<link href="./case2.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -110,7 +110,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./hypothesis.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">假设检验</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./hypothesis.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">假设检验</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -149,14 +149,38 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">数据操作</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ggplot2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ggplot2 画图系统</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./case1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">案例: 钻石数据集分析</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./case2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">案例: 航班数据集分析</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./hypothesis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">假设检验</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">假设检验</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">课程总结</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">课程总结</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -175,10 +199,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#第一类错误" id="toc-第一类错误" class="nav-link active" data-scroll-target="#第一类错误"><span class="header-section-number">2.0.1</span> 第一类错误</a></li>
-  <li><a href="#第二类错误" id="toc-第二类错误" class="nav-link" data-scroll-target="#第二类错误"><span class="header-section-number">2.0.2</span> 第二类错误</a></li>
-  <li><a href="#p值" id="toc-p值" class="nav-link" data-scroll-target="#p值"><span class="header-section-number">2.0.3</span> <span class="math inline">\(p\)</span>值</a></li>
-  <li><a href="#样本量" id="toc-样本量" class="nav-link" data-scroll-target="#样本量"><span class="header-section-number">2.0.4</span> 样本量</a></li>
+  <li><a href="#第一类错误" id="toc-第一类错误" class="nav-link active" data-scroll-target="#第一类错误"><span class="header-section-number">6.0.1</span> 第一类错误</a></li>
+  <li><a href="#第二类错误" id="toc-第二类错误" class="nav-link" data-scroll-target="#第二类错误"><span class="header-section-number">6.0.2</span> 第二类错误</a></li>
+  <li><a href="#p值" id="toc-p值" class="nav-link" data-scroll-target="#p值"><span class="header-section-number">6.0.3</span> <span class="math inline">\(p\)</span>值</a></li>
+  <li><a href="#样本量" id="toc-样本量" class="nav-link" data-scroll-target="#样本量"><span class="header-section-number">6.0.4</span> 样本量</a></li>
   </ul>
 </nav>
     </div>
@@ -187,7 +211,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">假设检验</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">假设检验</span></h1>
 </div>
 
 
@@ -204,15 +228,15 @@ window.Quarto = {
 </header>
 
 
-<section id="第一类错误" class="level3" data-number="2.0.1">
-<h3 data-number="2.0.1" class="anchored" data-anchor-id="第一类错误"><span class="header-section-number">2.0.1</span> 第一类错误</h3>
+<section id="第一类错误" class="level3" data-number="6.0.1">
+<h3 data-number="6.0.1" class="anchored" data-anchor-id="第一类错误"><span class="header-section-number">6.0.1</span> 第一类错误</h3>
 <ul>
 <li><p>拒真概率： 当原假设为真时，检验统计量落入拒绝域的概率 <span class="math display">\[P(X \in W |H_0=TRUE)\]</span></p></li>
 <li><p><span class="math inline">\(\alpha\)</span></p></li>
 </ul>
 </section>
-<section id="第二类错误" class="level3" data-number="2.0.2">
-<h3 data-number="2.0.2" class="anchored" data-anchor-id="第二类错误"><span class="header-section-number">2.0.2</span> 第二类错误</h3>
+<section id="第二类错误" class="level3" data-number="6.0.2">
+<h3 data-number="6.0.2" class="anchored" data-anchor-id="第二类错误"><span class="header-section-number">6.0.2</span> 第二类错误</h3>
 <ul>
 <li>取伪概率：当备择假设为真时，检验统计量未落入拒绝域的概率</li>
 </ul>
@@ -222,11 +246,11 @@ window.Quarto = {
 <li><p>假验的效能：正确接受备择假设的概率 <span class="math display">\[(1-\beta) \times 100\%\]</span></p></li>
 </ul>
 </section>
-<section id="p值" class="level3" data-number="2.0.3">
-<h3 data-number="2.0.3" class="anchored" data-anchor-id="p值"><span class="header-section-number">2.0.3</span> <span class="math inline">\(p\)</span>值</h3>
+<section id="p值" class="level3" data-number="6.0.3">
+<h3 data-number="6.0.3" class="anchored" data-anchor-id="p值"><span class="header-section-number">6.0.3</span> <span class="math inline">\(p\)</span>值</h3>
 </section>
-<section id="样本量" class="level3" data-number="2.0.4">
-<h3 data-number="2.0.4" class="anchored" data-anchor-id="样本量"><span class="header-section-number">2.0.4</span> 样本量</h3>
+<section id="样本量" class="level3" data-number="6.0.4">
+<h3 data-number="6.0.4" class="anchored" data-anchor-id="样本量"><span class="header-section-number">6.0.4</span> 样本量</h3>
 <ul>
 <li>效能分析：决定统计学检验的效能和计算揭示一定大小效应所需要的最小样本量
 <ul>
@@ -626,13 +650,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./intro.html" class="pagination-link  aria-label=" &lt;span="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">课程简介</span></span>
+      <a href="./case2.html" class="pagination-link  aria-label=" &lt;span="" 航班数据集分析&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">案例: 航班数据集分析</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./summary.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>课程总结</span>">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">课程总结</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./summary.html" class="pagination-link" aria-label="<span class='chapter-number'>7</span>&nbsp; <span class='chapter-title'>课程总结</span>">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">课程总结</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
