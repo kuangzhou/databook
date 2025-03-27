@@ -298,13 +298,13 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.735954</code></pre>
+<pre><code>[1] 1.726261</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x  <span class="sc">%&gt;%</span>  mean  <span class="sc">%&gt;%</span> sqrt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.735954</code></pre>
+<pre><code>[1] 1.726261</code></pre>
 </div>
 </div>
 <ul>
@@ -416,8 +416,8 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x  <span class="sc">%&gt;%</span> </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>{<span class="fu">rexp</span>(.[<span class="dv">1</span>],.[<span class="dv">3</span>])}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 1.48043249 0.27310818 0.41572131 0.82774849 0.02260174 2.63508137
- [7] 0.62525914 0.01299123 0.34855588 0.02826551</code></pre>
+<pre><code> [1] 0.68779871 0.03295791 0.31650585 0.01725518 0.75440635 1.76452895
+ [7] 0.71720215 1.90050349 0.18390902 0.16664005</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -425,7 +425,7 @@ window.Quarto = {
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a> {<span class="fu">list</span>(<span class="at">rnum =</span> <span class="fu">rexp</span>(.[<span class="dv">1</span>], .[<span class="dv">3</span>]), <span class="at">m =</span> .[<span class="dv">2</span>])}  <span class="sc">%&gt;%</span> </span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a> {.<span class="sc">$</span>rnum[<span class="dv">1</span><span class="sc">:</span>.<span class="sc">$</span>m]}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.33502335 0.09800844 0.99169307 0.39674538 0.49381625</code></pre>
+<pre><code>[1] 0.25408841 0.05120631 0.48828302 0.29194755 0.26695606</code></pre>
 </div>
 </div>
 <ul>
