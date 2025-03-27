@@ -1,0 +1,143 @@
+<!-- execute:
+  warning: false
+  message: false -->
+
+```{r, echo = FALSE, message = FALSE}
+setwd("/Users/zhoukuang/Documents/JGY_workspace/lectures/DataVisualization202004/DataBook")
+#setwd("E:/JGY_workspace/lectures/DataVisualization202004/DataBook")
+library(showtext)
+showtext_auto(enable = TRUE)
+```
+# 案例: 钻石数据集分析
+
+```{r}
+library(magrittr)
+library(tidyverse)
+```
+
+
+```{r}
+head(diamonds)
+```
+
+
+```{r}
+diamonds  %>% 
+filter(color == "D")  %>% 
+ggplot(aes(x = cut, y = price))  + 
+geom_boxplot()
+```
+
+```{r}
+diamonds %>% 
+group_split(by = color)  %>% 
+map(~ggplot(.x, aes(x = cut, y=price)) +
+geom_boxplot())
+```
+
+## 度量carat与price之间的关系
+
+
+```{r}
+diamonds  %>% 
+ggplot(aes(x = carat, y = price)) +
+geom_hex()
+```
+
+- 去噪
+
+```{r}
+diamonds  %>% 
+filter(carat<2.5) %>% 
+ggplot(aes(x = carat, y = price)) +
+geom_hex() +
+geom_smooth()
+```
+
+
+```{r}
+diamondsNew  <- diamonds  %>% 
+filter(carat < 2.5)  %>% 
+mutate(lcarat = log2(carat), lprice = log2(price))
+```
+
+
+```{r}
+diamondsNew %>% 
+ggplot(aes(x = lcarat, y = lprice)) +
+geom_hex()
+```
+
+- 建立线性回归模型
+
+```{r}
+modellm <- lm(lprice~lcarat, data = diamondsNew)
+```
+
+
+```{r}
+library(modelr)
+grid <- diamondsNew  %>% 
+data_grid(carat = seq_range(carat, 20))  %>%   
+mutate(lcarat = log2(carat))  %>% 
+add_predictions(modellm, "lprice")  %>% 
+mutate(pricePred = 2^lprice) 
+```
+
+
+```{r}
+ggplot(diamondsNew, aes(x = carat, y = price)) + 
+geom_point() +
+geom_line(data = grid, aes(x = carat, y = pricePred), col = "red")
+```
+
+残差分析
+
+```{r}
+diamondsNew <- diamondsNew  %>% 
+add_residuals(modellm, "lresid")  
+
+ggplot(diamondsNew, aes(x= carat, y = lresid)) +
+geom_hex()
+```
+
+- cut color clarity与残差的关系图
+
+```{r}
+ggplot(data = diamondsNew, aes(cut, lresid)) +
+geom_boxplot()
+```
+
+```{r}
+ggplot(data = diamondsNew, aes(color, lresid)) +
+geom_boxplot()
+```
+
+```{r}
+ggplot(data = diamondsNew, aes(clarity, lresid)) +
+geom_boxplot()
+```
+
+```{r}
+mlm <- lm(lprice ~ lcarat + cut + color + clarity, data = diamondsNew)
+diamondsNew %>% 
+data_grid(cut, .model = mlm) %>% 
+add_predictions(mlm, "prevalue")
+```
+
+
+```{r}
+diamondsNew  %>% 
+group_by(by = clarity)  %>% 
+summarise(nNum = n())
+```
+
+```{r}
+diamondsNew  %>% 
+group_by(by = color)  %>% 
+summarise(nNum = n())
+```
+
+- 连续值用的中位数
+- 离散值用的是众数?
+- 考试题

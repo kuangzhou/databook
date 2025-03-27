@@ -1,0 +1,741 @@
+  <!-- execute:
+    warning: false
+    message: false -->
+
+```{r, echo = FALSE}
+setwd("/Users/zhoukuang/Documents/JGY_workspace/lectures/DataVisualization202004/DataBook")
+#setwd("E:/JGY_workspace/lectures/DataVisualization202004/DataBook")
+library(showtext)
+showtext_auto(enable = TRUE)
+#font_add("songti", regular = "C:\\Windows\\Fonts\\simsunb.ttf")
+```
+# ggplot2 画图系统
+
+## 数据集介绍
+
+```{r}
+library(tidyverse)
+dim(mpg)
+head(mpg)
+```
+
+数据集大小为234行*11列，数据集主要变量介绍
+
+- manufacturer: 生产商
+
+- model: 型号
+
+- displ: 发动机排量（Displacement,  litres）, 连续变量
+
+- year: 生产年份
+
+- cyl: 汽车的汽缸数，离散变量
+
+- trans: type of transmission
+
+- drv: 驱动方式（f, r, 4）
+
+- cty: city miles per gallon
+
+- hwy: highway miles per gallon
+
+- fl: fuel type
+
+- class: type of car
+
+将数据集保存到本地
+
+```{r, eval = FALSE}
+write.csv(file="./output/mpg.csv", mpg)
+```
+
+横轴为displ, 纵轴为hwy， 画散点图
+
+```{r}
+p0 <- ggplot(data = mpg, aes(x = displ, y = hwy)) 
+p0 + geom_point()
+```
+
+
+
+把点的颜色设置为蓝色
+```{r}
+p0 + geom_point(color = "blue")
+```
+
+- 放到aes里面的是mapping，不是setting
+```{r}
+p0 +  geom_point(aes(color = "blue"))
+```
+
+```{r}
+p0 + geom_line()
+```
+
+点图与线图mapping的区别
+
+```{r}
+p0 + geom_line(aes(color = drv))
+```
+
+```{r}
+p0 + geom_point(aes(color = drv)) +
+geom_line(aes(color = drv))
+```
+## 分组
+
+分组操作：aes(color = drv)
+
+- 将颜色映射到分类变量drv
+
+- 对不同drv值的数据，按不同颜色分别绘图
+
+```{r, warning=FALSE}
+ggplot(data = mpg, aes(x = displ, y = hwy, color = drv)) + 
+geom_point()
+```
+
+对color的操作可以放到geom_point中
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+geom_point(aes(color = drv))
+```
+
+- 分析区别
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy,color = drv)) + 
+geom_point() +
+geom_smooth()
+```
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+geom_point(aes(color = drv)) +
+geom_smooth()
+```
+
+
+```{r, warning = FALSE}
+ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) + 
+geom_point(aes(color = drv)) +
+geom_smooth()
+```
+几何对象ggplot2绘图系统中全局与局部的规定
+
+- ggplot()中的数据和映射是全局的，可供所有几何对象共用
+
+- 位于几何对象中的数据和映射，是局部的，只供该几何对象使用
+
+- 几何对象优先使用局部的，局部没有则用全局的
+
+
+例：针对分省数据绘制人均GDP与年份之间的折线图，每个年份都对应31个省份人均GDP值
+
+
+```{r}
+load("../slides2024/Lecture2/data/ecostats.rda")
+ecostats
+```
+
+
+```{r}
+ggplot(data = ecostats, aes(x = Year, y = gdpPercap)) + 
+geom_line()
+```
+
+- 用分组操作实现对不同省分的变量情况刻画
+
+
+```{r, warning = FALSE, showtext = TRUE}
+ggplot(data = ecostats, aes(x = Year, y = gdpPercap)) + 
+geom_line(aes(color = Region))
+```
+
+- 添加平滑线
+
+```{r, warning = FALSE, showtext = TRUE}
+ggplot(data = ecostats, aes(x = Year, y = gdpPercap)) + 
+geom_line(aes(color = Region)) + 
+geom_smooth()
+```
+
+```{r, warning = FALSE, showtext = TRUE}
+ggplot(data = ecostats, aes(x = Year, y = gdpPercap,color = Region)) + 
+geom_line() + 
+geom_smooth()
+```
+
+分组图形特征映射
+```{r}
+ggplot(data = ecostats, aes(x = Year, y = gdpPercap)) + 
+geom_line(aes(group = Region), alpha = 0.2) 
+```
+
+```{r}
+ggplot(data = ecostats, aes(x = Year, y = gdpPercap, group=Region)) + 
+geom_line(alpha = 0.2) 
+```
+
+
+## 标度
+
+### 修改坐标轴标签
+
+```{r}
+p1 <- ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+geom_point() 
+p1
+```
+
+```{r}
+p1 + scale_y_continuous(breaks = seq(10,40,by=10))
+```
+```{r}
+p1 + scale_y_continuous(breaks = seq(10,40,by=10), labels = letters[1:4])
+```
+
+- 思考：为什么上图没有显示字母a?
+
+```{r}
+p1 + scale_y_continuous(limits = c(10, 40), breaks = seq(10,40,by=10), labels = letters[1:4]) 
+```
+```{r}
+p <- ggplot(tail(economics,45), aes(date, uempmed/100)) + 
+geom_line()+
+scale_x_date(date_breaks = "6 months", date_labels = "%b%Y") +
+scale_y_continuous(labels = scales::percent)
+p
+```
+
+### 修改坐标轴名称
+
+
+```{r}
+p1 <- ggplot(data = mpg, aes(x = displ, y = hwy))
+p2 <- p1 + geom_point()
+p2
+```
+
+```{r}
+p2 + 
+geom_point(aes(color = drv), shape = 2)
+```
+
+```{r}
+p1 + 
+geom_point(aes(color = drv), shape = 2)
+```
+
+
+```{r}
+p1 <- p + 
+labs(x = "Month", y = "Unemployed rate")
+p1
+```
+
+
+```{r}
+p2 <- p + 
+xlab("Month") +
+ylab("Unemployed rate")
+p2 
+```
+
+```{r}
+pMpg = ggplot(data = mpg, aes(x = displ, y = hwy)) 
+p1 = pMpg + geom_point(aes(color = drv))
+p1 
+```
+
+- 若前面已使用 color 参数，则可以在 labs() 函数中使用参数color 修改颜色的图例名称
+
+```{r}
+p2 = p1 + 
+labs(color = "驱动方式") + 
+theme(legend.position = "top")
+p2
+```
+### 设置坐标轴范围
+
+
+- coord_cartesian命令
+
+- 笛卡尔坐标系就是直角坐标系和斜角坐标系的统称
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+geom_point() +
+scale_y_continuous(breaks = seq(10,50,by=20), labels = letters[1:3])+
+coord_cartesian(ylim = c(0,50))
+```
+
+ylim后不能显示scale设置的breaks点的label
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+geom_point() +
+scale_y_continuous(breaks = seq(10,50,by=20), labels = letters[1:3])+
+ylim(0,50) 
+```
+
+- 体会一下scale与ylim设置顺序的不同，结果的不同
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+geom_point() +
+coord_cartesian(ylim = c(0,50))+
+scale_y_continuous(breaks = seq(10,50,by=20), labels = letters[1:3])
+```
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+geom_point() +
+ylim(0,50) +  
+scale_y_continuous(breaks = seq(10,50,by=20), labels = letters[1:3])
+```
+### 变换
+
+```{r}
+n=100
+x=rnorm(n,4,1)
+y=10^(5*log10(x)+8)+rnorm(n,1,2)
+```
+
+
+- 画散点图
+
+```{r}
+dataxy = tibble(x,y)
+p1 <- ggplot(data = dataxy, aes(x,y)) + 
+geom_point()
+p1
+```
+
+对数变换之后作散点图
+
+```{r}
+p2 <- p1 + 
+scale_x_log10() +
+scale_y_log10() 
+p2
+```
+
+- 使用自定义的函数会报错
+
+```{r}
+mylog <- function(x){
+  return(log10(x))
+}
+```
+
+```{r,eval=FALSE}
+p2 <- p1 + 
+scale_x_mylog() +
+scale_y_mylog() 
+p2
+```
+
+进行回归分析
+```{r}
+p2 <- p1 + 
+scale_x_log10() +
+scale_y_log10() +
+geom_smooth()
+p2
+```
+
+
+使用deepseek代码
+
+```{r}
+# 生成数据
+n <- 100
+set.seed(123)  # 设置随机种子以确保可重复性
+x <- rnorm(n, mean = 4, sd = 1)
+y <- 10^(5 * log10(x) + 8) + rnorm(n, mean = 1, sd = 2)
+df <- data.frame(x, y)
+
+# 拟合对数转换后的线性模型
+model <- lm(log10(y) ~ log10(x), data = df)
+
+# 生成预测值
+x_range <- seq(min(x), max(x), length.out = 100)
+predicted_log_y <- predict(model, newdata = data.frame(x = x_range))
+predicted_y <- 10^predicted_log_y
+pred_df <- data.frame(x = x_range, y = predicted_y)
+
+# 使用ggplot2绘图
+
+library(ggplot2)
+ggplot(df, aes(x = x, y = y)) +
+  geom_point(alpha = 0.6) +  # 绘制原始数据点
+  geom_line(data = pred_df, aes(x = x, y = y), color = "red", linewidth = 1) +  # 绘制拟合曲线
+  labs(title = "回归分析拟合曲线", x = "x", y = "y") +
+  theme_minimal()
+```
+
+### 设置图形标题与副标题
+
+```{r}
+p2 +
+labs(title = "回归分析",
+subtitle = "对数",
+caption = "数据随机模拟产生")
+```
+
+### 颜色配置
+
+
+```{r}
+p1 <- ggplot(data = mpg, aes(x = displ, y = hwy, color = drv)) +
+geom_point() +
+labs(color = "驱动方式")
+p1
+```
+
+
+```{r}
+p1 +
+scale_color_manual("驱动方式1", 
+values = c("red", "blue", "green"),
+labels = c("4", "f", "r"))
+```
+
+按什么顺序排的颜色？
+
+```{r}
+p1 +
+scale_color_manual("驱动方式2", 
+breaks = c("f", "r", "4"),
+values = c("red", "blue", "green"),
+labels = c("front", "rear", "four"))
+```
+
+```{r}
+p1 +
+scale_color_manual("驱动方式3", 
+breaks = c("f", "4", "r"),
+values = c("blue", "red", "green"),
+labels = c("front", "four", "rear"))
+```
+
+
+### 文字标注
+
+
+- 从不同的drv中随机选一个，作标注
+
+```{r}
+p1<-ggplot(mpg,aes(displ, hwy))+geom_point(aes(color = drv))
+p1
+```
+
+```{r}
+library(ggrepel)
+id1 = sample(which(mpg$drv=="r"),1)
+id2 = sample(which(mpg$drv=="f"),1)
+id3 = sample(which(mpg$drv=="4"),1)
+dataMark = mpg[c(id1,id2,id3),]
+p1 +
+geom_label_repel(data = dataMark, aes(label = drv))
+```
+
+- 从不同drv中选取hwy最大的进行标注
+
+
+deepseek代码
+
+
+- 找出每一组hwy最大的
+```{r}
+max_hwy <- mpg %>%
+group_by(drv) %>%
+slice_max(hwy, n = 1)
+max_hwy
+```
+
+ungroup函数
+
+```{r}
+max_hwy_un <- max_hwy %>% 
+ungroup()
+```
+
+```{r}
+max_hwy %>% 
+group_by(class) %>% 
+slice_max(hwy,n=1)
+```
+- 打标
+
+```{r}
+p1 +
+geom_point(data = max_hwy, shape = 8, size = 3)
+```
+
+使用ggrepel包的geom_label_repel函数
+
+```{r}
+p1 +
+geom_label_repel(data = max_hwy, aes(label =drv))
+```
+
+使用geom_text函数
+
+```{r}
+p1 +
+geom_text(
+  data = max_hwy, 
+  aes(label = drv, color = drv),  # 颜色与drv映射一致
+  size = 4, 
+  nudge_y = 0.5, 
+  fontface = "bold",
+  show.legend = FALSE  # 隐藏文本的图例（避免重复）
+)
+```
+
+filter函数
+
+```{r}
+max_hwy1 <- mpg %>%
+  group_by(drv) %>%
+  filter(hwy == max(hwy))
+max_hwy1
+```
+
+```{r}
+mpg %>%
+  filter(hwy == max(hwy)) %>%
+  group_by(drv)
+```
+
+```{r}
+maxValueR = max(mpg[which(mpg$drv=="r"),]$hwy)
+maxValueF = max(mpg[which(mpg$drv=="f"),]$hwy)
+maxValue4 = max(mpg[which(mpg$drv=="4"),]$hwy)
+id1 = which(mpg$drv=="r" & mpg$hwy == maxValueR) 
+id2 = which(mpg$drv=="f" & mpg$hwy == maxValueF) 
+id3 = which(mpg$drv=="4" & mpg$hwy == maxValue4) 
+dataMark = mpg[c(id1,id2,id3),]
+p1 +
+geom_label_repel(data = dataMark, aes(label = drv))
+```
+
+利用分组统计操作
+
+```{r}
+library(magrittr)
+best_in_drv=mpg %>%
+group_by(drv)%>%
+slice_max(hwy,n =1)
+p1 +
+geom_label_repel(data = best_in_drv, aes(label = drv))
+```
+```{r}
+p1+
+geom_text_repel(data =best_in_drv, aes(label= drv))
+```
+
+注意映射与赋值的区别
+```{r}
+p1+
+geom_text_repel(data =best_in_drv, label= "max")
+```
+
+### 统计变换
+
+每个class均值的柱状图
+
+- deepseek代码
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# 计算每个 class 的 hwy 均值
+class_hwy <- mpg %>%
+  group_by(class) %>%
+  summarise(mean_hwy = mean(hwy, na.rm = TRUE))
+
+# 绘制柱状图
+ggplot(class_hwy, aes(x = class, y = mean_hwy)) +
+  geom_col(fill = "steelblue", alpha = 0.8) 
+```
+
+- 限定关键字：使用 stat_summary 计算均值并绘制柱状图
+```{r}
+ggplot(mpg, aes(x = class, y = hwy)) +
+  # 使用 stat_summary 计算均值并绘制柱子
+  stat_summary(
+    fun = mean,               # 计算均值
+    geom = "bar",             # 指定几何对象为柱状图
+    fill = "steelblue"
+  )   
+```
+
+
+以drv为横轴，对hwy数据进行汇总 
+
+画出每个drv对应的均值
+
+```{r}
+p1 <- ggplot(data = mpg, aes(x = drv, y = hwy)) 
+p2 <- p1 + 
+stat_summary(fun.data = mean_se, geom = "bar", aes(color = drv, fill = drv))
+p2
+```
+- fun.data参数可以省略，默认参数是mean_se
+
+画出每个drv的误差线
+
+```{r}
+p3 <- p1 + 
+stat_summary(fun.data = mean_se, geom = "errorbar")
+p3
+```
+
+参数fun.data 
+
+- 将数据变形，这个函数默认是mean_se()
+
+- 返回的是数据框，这个数据框将用于geom参数画图
+
+- 如果fun.data返回的数据框包含了所需要的美学映射，图形就会显示出来
+
+将柱状图与误差线放到一起
+
+```{r}
+p1 +
+stat_summary(fun = mean, geom = "bar", aes(color = drv, fill = drv)) +
+stat_summary(fun.data = mean_se, geom = "errorbar") 
+```
+
+95%置信区间
+
+```{r}
+p1 +
+stat_summary(fun = mean, geom = "bar", aes(color = drv, fill = drv)) +
+stat_summary(fun.data = ~mean_se(., mult = 1.96), geom = "errorbar") 
+```
+- 箱线图 
+
+```{r}
+p1  + 
+stat_boxplot(geom = "boxplot", aes(color = drv))
+```
+- 可在几何对象函数geom_*()中直接创建
+```{r}
+p1 + 
+geom_boxplot(aes(color = drv))
+```
+
+
+```{r}
+p1 + 
+geom_boxplot(aes(color = drv)) + 
+stat_summary(fun.data = ~mean_se(., mult = 1.96), geom = "errorbar") 
+```
+
+
+### 坐标系
+
+- 坐标轴翻转
+
+```{r}
+p1 + 
+geom_boxplot(aes(color = drv)) + 
+stat_summary(fun.data = ~mean_se(., mult = 1.96), geom = "errorbar") +
+coord_flip()
+```
+
+
+## 泛函式编程
+
+mpg数据集，按drv分组，画出各组displ与hwy的散点图
+
+- 使用分面
+
+先画图再分面
+
+```{r}
+# 按 drv 分组绘制散点图（分面展示）
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(
+    aes(color = drv)  # 按 drv 着色（可选）
+  ) +
+  facet_wrap(~ drv, ncol = 3)   # 按 drv 分面，3列布局
+```
+
+先分面再画图
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  facet_wrap(~ drv, ncol = 3)+   # 按 drv 分面，3列布局
+  geom_point(
+    aes(color = drv)  # 按 drv 着色（可选）
+  ) 
+```
+
+- 使用map函数
+```{r}
+mpg  %>% 
+group_split(drv) %>% 
+map(~ggplot(data=.x, aes(x = displ, y = hwy))+geom_point())
+```
+
+如何在三幅图中，对不同的drv类型，使用不同的颜色
+
+```{r}
+mpg  %>% 
+group_split(drv) %>% 
+map(~ggplot(data=.x, aes(x = displ, y = hwy))+
+geom_point(aes(color = drv)))
+```
+
+为什么都是红色？ 怎样实现颜色不同分配？
+
+- 手动设置颜色 
+```{r}
+drv_colors <- c("4" = "red", "f" = "blue", "r" = "green")
+# 按drv分组并分割数据
+mpg %>%
+  group_split(drv) %>%
+  # 对每个子数据集绘图
+  map(~ {
+    drv_type <- unique(.x$drv)  # 提取当前组的drv值
+    ggplot(.x, aes(x = displ, y = hwy)) +
+      geom_point(color = drv_colors[drv_type])   # 设置颜色和透明度
+  })
+```
+
+- 利用调色板
+
+```{r}
+mpg %>%
+  group_split(drv) %>%
+  # 对每个子数据集绘图
+  map(~{
+    drv_type <- unique(.x$drv)  # 提取当前组的drv值
+    ggplot(.x, aes(x = displ, y = hwy)) +
+      geom_point(aes(color = drv_type)) +
+         scale_color_manual(values = scales::hue_pal()(3)) +
+         guides(color = "none")
+  })
+```
+
+
+- 上面的代码为啥还都是红色？
+
+```{r}
+drv_types <- unique(mpg$drv)
+drv_colors <- scales::hue_pal()(3)
+mpg %>%
+  group_split(drv) %>%
+  # 对每个子数据集绘图
+  map(~{
+    drv_type <- unique(.x$drv)  
+    current_color <- drv_colors[drv_types == drv_type]
+    ggplot(.x, aes(x = displ, y = hwy)) +
+      geom_point(color = current_color) +
+         guides(color = "none")
+  })
+```

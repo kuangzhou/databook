@@ -4,10 +4,15 @@ project:
 book:
   title: "统计数据分析及可视化(讲义)"
   author: "周旷"
-  date: "2024/02/04"
+  date: "2025/03/27"
   chapters:
     - index.qmd
     - intro.qmd
+    - data.qmd
+    - ggplot2.qmd
+    - case1.qmd
+    - case2.qmd
+    - estimation.qmd
     - hypothesis.qmd
     - summary.qmd
     - references.qmd
@@ -22,6 +27,7 @@ format:
     include-in-header:
         text:
             \usepackage{ctex}
+
 
 
 

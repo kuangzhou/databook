@@ -1,0 +1,221 @@
+<!-- execute:
+  warning: false
+  message: false -->
+
+```{r, echo = FALSE, message = FALSE}
+setwd("/Users/zhoukuang/Documents/JGY_workspace/lectures/DataVisualization202004/DataBook")
+#setwd("E:/JGY_workspace/lectures/DataVisualization202004/DataBook")
+library(showtext)
+showtext_auto(enable = TRUE)
+```
+# 数据操作
+
+```{r}
+library(magrittr)
+library(tidyverse)
+```
+
+## 管道函数
+
+```{r}
+x = runif(100, 1, 5)
+sqrt(mean(x))
+```
+
+```{r}
+x  %>%  mean  %>% sqrt
+```
+
+- mpg数据集，以drv变量分组，统计hwy的均值
+
+
+非管道操作
+
+- 一般流程
+
+```{r}
+mean(mpg[mpg$drv=="f",]$hwy)
+mean(mpg[mpg$drv=="4",]$hwy)
+mean(mpg[mpg$drv=="r",]$hwy)
+```
+
+- 如果有很多组怎么办
+
+```{r}
+levelValue = levels(factor(mpg$drv))
+aveVec = rep(0, length(levelValue))
+for(i in 1:length(levelValue)){
+  aveVec[i] = mean(mpg[mpg$drv==levelValue[i],]$hwy)
+}
+```
+
+- base 里面的分组统计操作
+
+```{r}
+aveVec = tapply(mpg$hwy, INDEX = mpg$drv, FUN = mean)
+aveVec
+```
+
+管道操作
+```{r}
+d1 <- mpg %>%  
+group_by(drv)
+d1
+d1 %>% 
+summarise(hwy_ave = mean(hwy))
+```
+
+### 管道函数非第一参数
+
+```{r}
+mpg %>% 
+group_split(drv)  %>% 
+map(~mean(.x$hwy))
+```
+
+
+- .可以在当层管道中多次使用，但是要放在{}环境中 
+
+```{r}
+x = c(n = 10, m = 5, lambda = 2)
+```
+
+从$x$出发，生成$n$个参数为$\lambda$的指数分布随机数
+
+错误用法
+```{r,eval = FALSE}
+x  %>% 
+rexp(.[1],.[3])
+```
+
+正确用法
+
+```{r}
+x  %>% 
+{rexp(.[1],.[3])}
+```
+```{r}
+x  %>% 
+ {list(rnum = rexp(.[1], .[3]), m = .[2])}  %>% 
+ {.$rnum[1:.$m]}
+```
+
+- map循环机制
+
+计算mpg数据集hwy与cty两个变量的均值
+
+```{r}
+mpg1 <- mpg[,c("hwy","cty")]
+mpg1  %>% 
+map(mean)
+```
+
+
+
+可以控制返回值的类型
+
+```{r}
+mpg1  %>% 
+map_dbl(mean)
+```
+
+```{r}
+map2_dbl(iris[,1], iris[,2], ~.x + .y)
+```
+
+
+将mpg数据集按drv变量进行分组，然后统计各组hwy的均值
+```{r}
+mpg %>% 
+group_split(drv)  %>% 
+map(mean)
+```
+
+将mpg数据集按drv变量进行分组，然后画出各组displ与hwy的散点图
+
+```{r}
+mpg %>% 
+group_split(drv)  %>% 
+map(~plot(.x$displ, .x$hwy))
+```
+
+
+```{r}
+plotfun <- function(xx){
+  p1 <- ggplot(data = xx, aes(x = displ, y  = hwy)) +
+  geom_point()
+  p1
+}
+mpg %>% 
+group_split(drv)  %>% 
+map(plotfun)
+```
+
+使用匿名函数
+```{r}
+mpg %>% 
+group_split(drv)  %>% 
+map(~ggplot(.x, aes(x = displ, y = hwy)))
+```
+
+
+## 数据变换
+
+mutate增加列
+
+```{r}
+iris %>% 
+  mutate(Sepal.LW = Sepal.Length+Sepal.Width) %>% 
+  head(5)
+```
+
+
+## 分组统计
+
+```{r}
+mpg  %>% 
+group_by(drv)  %>% 
+summarise(meanHwy = mean(hwy))
+```
+
+```{r}
+mpg  %>% 
+group_by(drv)  %>% 
+summarise(NumbyDrv = n())
+```
+
+```{r}
+mpg  %>% 
+group_split(drv) %>% 
+map(~mean(.x$hwy))
+```
+
+```{r}
+mpg  %>% 
+group_split(drv) %>% 
+map_dbl(~length(.x$hwy))
+```
+
+## filter函数
+
+mpg数据以drv分组，找到各组数据hwy值大于均值+标准差的样本
+
+- 体会group_by与group_split的区别
+
+```{r}
+mpg  %>% 
+group_by(drv)  %>% 
+filter(hwy > mean(hwy)+sd(hwy))
+```
+
+```{r}
+mpg  %>% 
+group_split(drv) %>% 
+map(~filter(.x, hwy >mean(hwy)+sd(hwy)))
+```
+
+```{r}
+mpg  %>% 
+group_split(drv) %>% 
+map(~filter(.x, .x$hwy >mean(.x$hwy)+sd(.x$hwy)))
+```
