@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>数据分析与可视化(讲义) - 3&nbsp; ggplot2 画图系统</title>
+<title>数据分析与可视化(讲义) - 3&nbsp; ggplot2画图系统</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ggplot2.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ggplot2.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ggplot2画图系统</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -161,19 +161,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggplot2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ggplot2画图系统</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./case1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">案例1：钻石数据分析</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./case2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">案例: 航班数据集分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">案例2: 航班数据集分析</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -210,23 +210,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#数据集介绍" id="toc-数据集介绍" class="nav-link active" data-scroll-target="#数据集介绍"><span class="header-section-number">3.1</span> 数据集介绍</a></li>
-  <li><a href="#分组" id="toc-分组" class="nav-link" data-scroll-target="#分组"><span class="header-section-number">3.2</span> 分组</a></li>
-  <li><a href="#标度" id="toc-标度" class="nav-link" data-scroll-target="#标度"><span class="header-section-number">3.3</span> 标度</a>
+  <li><a href="#ggplot2-画图系统" id="toc-ggplot2-画图系统" class="nav-link active" data-scroll-target="#ggplot2-画图系统"><span class="header-section-number">4</span> ggplot2 画图系统</a>
   <ul class="collapse">
-  <li><a href="#修改坐标轴标签" id="toc-修改坐标轴标签" class="nav-link" data-scroll-target="#修改坐标轴标签"><span class="header-section-number">3.3.1</span> 修改坐标轴标签</a></li>
-  <li><a href="#修改坐标轴名称" id="toc-修改坐标轴名称" class="nav-link" data-scroll-target="#修改坐标轴名称"><span class="header-section-number">3.3.2</span> 修改坐标轴名称</a></li>
-  <li><a href="#设置坐标轴范围" id="toc-设置坐标轴范围" class="nav-link" data-scroll-target="#设置坐标轴范围"><span class="header-section-number">3.3.3</span> 设置坐标轴范围</a></li>
-  <li><a href="#变换" id="toc-变换" class="nav-link" data-scroll-target="#变换"><span class="header-section-number">3.3.4</span> 变换</a></li>
-  <li><a href="#设置图形标题与副标题" id="toc-设置图形标题与副标题" class="nav-link" data-scroll-target="#设置图形标题与副标题"><span class="header-section-number">3.3.5</span> 设置图形标题与副标题</a></li>
-  <li><a href="#颜色配置" id="toc-颜色配置" class="nav-link" data-scroll-target="#颜色配置"><span class="header-section-number">3.3.6</span> 颜色配置</a></li>
-  <li><a href="#文字标注" id="toc-文字标注" class="nav-link" data-scroll-target="#文字标注"><span class="header-section-number">3.3.7</span> 文字标注</a></li>
-  <li><a href="#统计变换" id="toc-统计变换" class="nav-link" data-scroll-target="#统计变换"><span class="header-section-number">3.3.8</span> 统计变换</a></li>
-  <li><a href="#坐标系" id="toc-坐标系" class="nav-link" data-scroll-target="#坐标系"><span class="header-section-number">3.3.9</span> 坐标系</a></li>
+  <li><a href="#数据集介绍" id="toc-数据集介绍" class="nav-link" data-scroll-target="#数据集介绍"><span class="header-section-number">4.1</span> 数据集介绍</a></li>
+  <li><a href="#分组" id="toc-分组" class="nav-link" data-scroll-target="#分组"><span class="header-section-number">4.2</span> 分组</a></li>
+  <li><a href="#标度" id="toc-标度" class="nav-link" data-scroll-target="#标度"><span class="header-section-number">4.3</span> 标度</a>
+  <ul class="collapse">
+  <li><a href="#修改坐标轴标签" id="toc-修改坐标轴标签" class="nav-link" data-scroll-target="#修改坐标轴标签"><span class="header-section-number">4.3.1</span> 修改坐标轴标签</a></li>
+  <li><a href="#修改坐标轴名称" id="toc-修改坐标轴名称" class="nav-link" data-scroll-target="#修改坐标轴名称"><span class="header-section-number">4.3.2</span> 修改坐标轴名称</a></li>
+  <li><a href="#设置坐标轴范围" id="toc-设置坐标轴范围" class="nav-link" data-scroll-target="#设置坐标轴范围"><span class="header-section-number">4.3.3</span> 设置坐标轴范围</a></li>
+  <li><a href="#变换" id="toc-变换" class="nav-link" data-scroll-target="#变换"><span class="header-section-number">4.3.4</span> 变换</a></li>
+  <li><a href="#设置图形标题与副标题" id="toc-设置图形标题与副标题" class="nav-link" data-scroll-target="#设置图形标题与副标题"><span class="header-section-number">4.3.5</span> 设置图形标题与副标题</a></li>
+  <li><a href="#颜色配置" id="toc-颜色配置" class="nav-link" data-scroll-target="#颜色配置"><span class="header-section-number">4.3.6</span> 颜色配置</a></li>
+  <li><a href="#文字标注" id="toc-文字标注" class="nav-link" data-scroll-target="#文字标注"><span class="header-section-number">4.3.7</span> 文字标注</a></li>
+  <li><a href="#统计变换" id="toc-统计变换" class="nav-link" data-scroll-target="#统计变换"><span class="header-section-number">4.3.8</span> 统计变换</a></li>
+  <li><a href="#坐标系" id="toc-坐标系" class="nav-link" data-scroll-target="#坐标系"><span class="header-section-number">4.3.9</span> 坐标系</a></li>
   </ul></li>
-  <li><a href="#泛函式编程" id="toc-泛函式编程" class="nav-link" data-scroll-target="#泛函式编程"><span class="header-section-number">3.4</span> 泛函式编程</a></li>
-  <li><a href="#分组统计" id="toc-分组统计" class="nav-link" data-scroll-target="#分组统计"><span class="header-section-number">3.5</span> 分组统计</a></li>
-  <li><a href="#数据重塑造" id="toc-数据重塑造" class="nav-link" data-scroll-target="#数据重塑造"><span class="header-section-number">3.6</span> 数据重塑造</a></li>
+  <li><a href="#泛函式编程" id="toc-泛函式编程" class="nav-link" data-scroll-target="#泛函式编程"><span class="header-section-number">4.4</span> 泛函式编程</a></li>
+  <li><a href="#分组统计" id="toc-分组统计" class="nav-link" data-scroll-target="#分组统计"><span class="header-section-number">4.5</span> 分组统计</a></li>
+  <li><a href="#数据重塑造" id="toc-数据重塑造" class="nav-link" data-scroll-target="#数据重塑造"><span class="header-section-number">4.6</span> 数据重塑造</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -235,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ggplot2 画图系统</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ggplot2画图系统</span></h1>
 </div>
 
 
@@ -263,8 +266,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>载入需要的程辑包：showtextdb</code></pre>
 </div>
 </div>
-<section id="数据集介绍" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="数据集介绍"><span class="header-section-number">3.1</span> 数据集介绍</h2>
+<section id="ggplot2-画图系统" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> ggplot2 画图系统</h1>
+<section id="数据集介绍" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="数据集介绍"><span class="header-section-number">4.1</span> 数据集介绍</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -383,8 +388,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="分组" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="分组"><span class="header-section-number">3.2</span> 分组</h2>
+<section id="分组" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="分组"><span class="header-section-number">4.2</span> 分组</h2>
 <p>分组操作：aes(color = drv)</p>
 <ul>
 <li><p>将颜色映射到分类变量drv</p></li>
@@ -570,10 +575,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="标度" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="标度"><span class="header-section-number">3.3</span> 标度</h2>
-<section id="修改坐标轴标签" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="修改坐标轴标签"><span class="header-section-number">3.3.1</span> 修改坐标轴标签</h3>
+<section id="标度" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="标度"><span class="header-section-number">4.3</span> 标度</h2>
+<section id="修改坐标轴标签" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="修改坐标轴标签"><span class="header-section-number">4.3.1</span> 修改坐标轴标签</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> </span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() </span>
@@ -637,8 +642,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="修改坐标轴名称" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="修改坐标轴名称"><span class="header-section-number">3.3.2</span> 修改坐标轴名称</h3>
+<section id="修改坐标轴名称" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="修改坐标轴名称"><span class="header-section-number">4.3.2</span> 修改坐标轴名称</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p1 <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
@@ -727,8 +732,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="设置坐标轴范围" class="level3" data-number="3.3.3">
-<h3 data-number="3.3.3" class="anchored" data-anchor-id="设置坐标轴范围"><span class="header-section-number">3.3.3</span> 设置坐标轴范围</h3>
+<section id="设置坐标轴范围" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="设置坐标轴范围"><span class="header-section-number">4.3.3</span> 设置坐标轴范围</h3>
 <ul>
 <li><p>coord_cartesian命令</p></li>
 <li><p>笛卡尔坐标系就是直角坐标系和斜角坐标系的统称</p></li>
@@ -798,8 +803,8 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 </div>
 </section>
-<section id="变换" class="level3" data-number="3.3.4">
-<h3 data-number="3.3.4" class="anchored" data-anchor-id="变换"><span class="header-section-number">3.3.4</span> 变换</h3>
+<section id="变换" class="level3" data-number="4.3.4">
+<h3 data-number="4.3.4" class="anchored" data-anchor-id="变换"><span class="header-section-number">4.3.4</span> 变换</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>n<span class="ot">=</span><span class="dv">100</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="fu">rnorm</span>(n,<span class="dv">4</span>,<span class="dv">1</span>)</span>
@@ -902,8 +907,8 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 </div>
 </section>
-<section id="设置图形标题与副标题" class="level3" data-number="3.3.5">
-<h3 data-number="3.3.5" class="anchored" data-anchor-id="设置图形标题与副标题"><span class="header-section-number">3.3.5</span> 设置图形标题与副标题</h3>
+<section id="设置图形标题与副标题" class="level3" data-number="4.3.5">
+<h3 data-number="4.3.5" class="anchored" data-anchor-id="设置图形标题与副标题"><span class="header-section-number">4.3.5</span> 设置图形标题与副标题</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">+</span></span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"回归分析"</span>,</span>
@@ -921,8 +926,8 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 </div>
 </section>
-<section id="颜色配置" class="level3" data-number="3.3.6">
-<h3 data-number="3.3.6" class="anchored" data-anchor-id="颜色配置"><span class="header-section-number">3.3.6</span> 颜色配置</h3>
+<section id="颜色配置" class="level3" data-number="4.3.6">
+<h3 data-number="4.3.6" class="anchored" data-anchor-id="颜色配置"><span class="header-section-number">4.3.6</span> 颜色配置</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -979,8 +984,8 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 </div>
 </section>
-<section id="文字标注" class="level3" data-number="3.3.7">
-<h3 data-number="3.3.7" class="anchored" data-anchor-id="文字标注"><span class="header-section-number">3.3.7</span> 文字标注</h3>
+<section id="文字标注" class="level3" data-number="4.3.7">
+<h3 data-number="4.3.7" class="anchored" data-anchor-id="文字标注"><span class="header-section-number">4.3.7</span> 文字标注</h3>
 <ul>
 <li>从不同的drv中随机选一个，作标注</li>
 </ul>
@@ -1207,8 +1212,8 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 </div>
 </section>
-<section id="统计变换" class="level3" data-number="3.3.8">
-<h3 data-number="3.3.8" class="anchored" data-anchor-id="统计变换"><span class="header-section-number">3.3.8</span> 统计变换</h3>
+<section id="统计变换" class="level3" data-number="4.3.8">
+<h3 data-number="4.3.8" class="anchored" data-anchor-id="统计变换"><span class="header-section-number">4.3.8</span> 统计变换</h3>
 <p>每个class均值的柱状图</p>
 <ul>
 <li>deepseek代码</li>
@@ -1356,8 +1361,8 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 </div>
 </section>
-<section id="坐标系" class="level3" data-number="3.3.9">
-<h3 data-number="3.3.9" class="anchored" data-anchor-id="坐标系"><span class="header-section-number">3.3.9</span> 坐标系</h3>
+<section id="坐标系" class="level3" data-number="4.3.9">
+<h3 data-number="4.3.9" class="anchored" data-anchor-id="坐标系"><span class="header-section-number">4.3.9</span> 坐标系</h3>
 <ul>
 <li>坐标轴翻转</li>
 </ul>
@@ -1376,8 +1381,8 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 </section>
 </section>
-<section id="泛函式编程" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="泛函式编程"><span class="header-section-number">3.4</span> 泛函式编程</h2>
+<section id="泛函式编程" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="泛函式编程"><span class="header-section-number">4.4</span> 泛函式编程</h2>
 <p>mpg数据集，按drv分组，画出各组displ与hwy的散点图</p>
 <ul>
 <li>使用分面</li>
@@ -1637,8 +1642,8 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 </div>
 </section>
-<section id="分组统计" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="分组统计"><span class="header-section-number">3.5</span> 分组统计</h2>
+<section id="分组统计" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="分组统计"><span class="header-section-number">4.5</span> 分组统计</h2>
 <p>统计mpg数据集中不同drv的数量</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>mpg <span class="sc">%&gt;%</span> </span>
@@ -1654,8 +1659,8 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 </div>
 </section>
-<section id="数据重塑造" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="数据重塑造"><span class="header-section-number">3.6</span> 数据重塑造</h2>
+<section id="数据重塑造" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="数据重塑造"><span class="header-section-number">4.6</span> 数据重塑造</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建数据集</span></span>
 <span id="cb123-2"><a href="#cb123-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
@@ -1717,6 +1722,7 @@ Adding another scale for y, which will replace the existing scale.</code></pre>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -2109,8 +2115,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./case1.html" class="pagination-link" aria-label="<span class='chapter-number'>4</span>&nbsp; <span class='chapter-title'>setwd(&quot;E:/JGY_workspace/lectures/DataVisualization202004/DataBook&quot;)</span>">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./case1.html" class="pagination-link" aria-label="<span class='chapter-number'>4</span>&nbsp; <span class='chapter-title'>案例1：钻石数据分析</span>">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">案例1：钻石数据分析</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

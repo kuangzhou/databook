@@ -190,19 +190,19 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggplot2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ggplot2画图系统</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./case1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">案例1：钻石数据分析</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./case2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">案例: 航班数据集分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">案例2: 航班数据集分析</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -298,13 +298,13 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.701955</code></pre>
+<pre><code>[1] 1.732624</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x  <span class="sc">%&gt;%</span>  mean  <span class="sc">%&gt;%</span> sqrt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.701955</code></pre>
+<pre><code>[1] 1.732624</code></pre>
 </div>
 </div>
 <ul>
@@ -416,8 +416,8 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x  <span class="sc">%&gt;%</span> </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>{<span class="fu">rexp</span>(.[<span class="dv">1</span>],.[<span class="dv">3</span>])}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.721778873 0.681646006 0.197383223 1.367096472 0.001453522 0.564176762
- [7] 0.328659582 0.690866304 0.090980088 0.372368626</code></pre>
+<pre><code> [1] 0.6862099 1.7308281 0.2216313 0.3030803 0.1403322 0.1642280 0.6524388
+ [8] 0.6749545 0.7239179 0.5099104</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -425,7 +425,7 @@ window.Quarto = {
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a> {<span class="fu">list</span>(<span class="at">rnum =</span> <span class="fu">rexp</span>(.[<span class="dv">1</span>], .[<span class="dv">3</span>]), <span class="at">m =</span> .[<span class="dv">2</span>])}  <span class="sc">%&gt;%</span> </span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a> {.<span class="sc">$</span>rnum[<span class="dv">1</span><span class="sc">:</span>.<span class="sc">$</span>m]}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.41279675 0.07832959 0.89905025 1.15661024 1.44638810</code></pre>
+<pre><code>[1] 0.09308702 0.03767711 0.42682358 0.04104863 0.79068983</code></pre>
 </div>
 </div>
 <ul>
@@ -1199,8 +1199,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./ggplot2.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>setwd(&quot;E:/JGY_workspace/lectures/DataVisualization202004/DataBook&quot;)</span>">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./ggplot2.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>ggplot2画图系统</span>">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ggplot2画图系统</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

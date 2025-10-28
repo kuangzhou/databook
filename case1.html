@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>数据分析与可视化(讲义) - 4&nbsp; 案例: 钻石数据集分析</title>
+<title>数据分析与可视化(讲义) - 4&nbsp; 案例1：钻石数据分析</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./case1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./case1.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">案例1：钻石数据分析</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -161,19 +161,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ggplot2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ggplot2画图系统</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./case1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">案例1：钻石数据分析</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./case2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">案例: 航班数据集分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">案例2: 航班数据集分析</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -210,14 +210,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#回归分析" id="toc-回归分析" class="nav-link active" data-scroll-target="#回归分析"><span class="header-section-number">4.1</span> 回归分析</a></li>
-  <li><a href="#寻找影响因素" id="toc-寻找影响因素" class="nav-link" data-scroll-target="#寻找影响因素"><span class="header-section-number">4.2</span> 寻找影响因素</a>
+  <li><a href="#案例-钻石数据集分析" id="toc-案例-钻石数据集分析" class="nav-link active" data-scroll-target="#案例-钻石数据集分析"><span class="header-section-number">5</span> 案例: 钻石数据集分析</a>
   <ul class="collapse">
-  <li><a href="#描述性统计发现反常识现象" id="toc-描述性统计发现反常识现象" class="nav-link" data-scroll-target="#描述性统计发现反常识现象"><span class="header-section-number">4.2.1</span> 描述性统计发现反常识现象</a></li>
-  <li><a href="#价格趋势分析" id="toc-价格趋势分析" class="nav-link" data-scroll-target="#价格趋势分析"><span class="header-section-number">4.2.2</span> 价格趋势分析</a></li>
-  <li><a href="#控制color变量后的cut与price间关系分析" id="toc-控制color变量后的cut与price间关系分析" class="nav-link" data-scroll-target="#控制color变量后的cut与price间关系分析"><span class="header-section-number">4.2.3</span> 控制color变量后的cut与price间关系分析</a></li>
+  <li><a href="#回归分析" id="toc-回归分析" class="nav-link" data-scroll-target="#回归分析"><span class="header-section-number">5.1</span> 回归分析</a></li>
+  <li><a href="#寻找影响因素" id="toc-寻找影响因素" class="nav-link" data-scroll-target="#寻找影响因素"><span class="header-section-number">5.2</span> 寻找影响因素</a>
+  <ul class="collapse">
+  <li><a href="#描述性统计发现反常识现象" id="toc-描述性统计发现反常识现象" class="nav-link" data-scroll-target="#描述性统计发现反常识现象"><span class="header-section-number">5.2.1</span> 描述性统计发现反常识现象</a></li>
+  <li><a href="#价格趋势分析" id="toc-价格趋势分析" class="nav-link" data-scroll-target="#价格趋势分析"><span class="header-section-number">5.2.2</span> 价格趋势分析</a></li>
+  <li><a href="#控制color变量后的cut与price间关系分析" id="toc-控制color变量后的cut与price间关系分析" class="nav-link" data-scroll-target="#控制color变量后的cut与price间关系分析"><span class="header-section-number">5.2.3</span> 控制color变量后的cut与price间关系分析</a></li>
   </ul></li>
-  <li><a href="#度量carat与price之间的关系" id="toc-度量carat与price之间的关系" class="nav-link" data-scroll-target="#度量carat与price之间的关系"><span class="header-section-number">4.3</span> 度量carat与price之间的关系</a></li>
+  <li><a href="#度量carat与price之间的关系" id="toc-度量carat与price之间的关系" class="nav-link" data-scroll-target="#度量carat与price之间的关系"><span class="header-section-number">5.3</span> 度量carat与price之间的关系</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -226,7 +229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">案例: 钻石数据集分析</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">案例1：钻石数据分析</span></h1>
 </div>
 
 
@@ -246,6 +249,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- execute:
   warning: false
   message: false -->
+<section id="案例-钻石数据集分析" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> 案例: 钻石数据集分析</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -280,8 +285,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6  0.24 Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48</code></pre>
 </div>
 </div>
-<section id="回归分析" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="回归分析"><span class="header-section-number">4.1</span> 回归分析</h2>
+<section id="回归分析" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="回归分析"><span class="header-section-number">5.1</span> 回归分析</h2>
 <ul>
 <li>线性回归</li>
 </ul>
@@ -378,10 +383,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>非线性回归</li>
 </ul>
 </section>
-<section id="寻找影响因素" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="寻找影响因素"><span class="header-section-number">4.2</span> 寻找影响因素</h2>
-<section id="描述性统计发现反常识现象" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="描述性统计发现反常识现象"><span class="header-section-number">4.2.1</span> 描述性统计发现反常识现象</h3>
+<section id="寻找影响因素" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="寻找影响因素"><span class="header-section-number">5.2</span> 寻找影响因素</h2>
+<section id="描述性统计发现反常识现象" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="描述性统计发现反常识现象"><span class="header-section-number">5.2.1</span> 描述性统计发现反常识现象</h3>
 <p>不同cut, price线箱图的变化</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
@@ -422,8 +427,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="价格趋势分析" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="价格趋势分析"><span class="header-section-number">4.2.2</span> 价格趋势分析</h3>
+<section id="价格趋势分析" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="价格趋势分析"><span class="header-section-number">5.2.2</span> 价格趋势分析</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
@@ -724,8 +729,8 @@ Caused by error in `predLoess()`:
 </div>
 </div>
 </section>
-<section id="控制color变量后的cut与price间关系分析" class="level3" data-number="4.2.3">
-<h3 data-number="4.2.3" class="anchored" data-anchor-id="控制color变量后的cut与price间关系分析"><span class="header-section-number">4.2.3</span> 控制color变量后的cut与price间关系分析</h3>
+<section id="控制color变量后的cut与price间关系分析" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="控制color变量后的cut与price间关系分析"><span class="header-section-number">5.2.3</span> 控制color变量后的cut与price间关系分析</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(color <span class="sc">==</span> <span class="st">"D"</span>)  <span class="sc">%&gt;%</span> </span>
@@ -823,8 +828,8 @@ Caused by error in `predLoess()`:
 </div>
 </section>
 </section>
-<section id="度量carat与price之间的关系" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="度量carat与price之间的关系"><span class="header-section-number">4.3</span> 度量carat与price之间的关系</h2>
+<section id="度量carat与price之间的关系" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="度量carat与price之间的关系"><span class="header-section-number">5.3</span> 度量carat与price之间的关系</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
@@ -998,6 +1003,7 @@ Caused by error in `predLoess()`:
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1386,12 +1392,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./ggplot2.html" class="pagination-link  aria-label=" &lt;span="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">setwd(“E:/JGY_workspace/lectures/DataVisualization202004/DataBook”)</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">ggplot2画图系统</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./case2.html" class="pagination-link" aria-label="<span class='chapter-number'>5</span>&nbsp; <span class='chapter-title'>案例: 航班数据集分析</span>">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">案例: 航班数据集分析</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./case2.html" class="pagination-link" aria-label="<span class='chapter-number'>5</span>&nbsp; <span class='chapter-title'>案例2: 航班数据集分析</span>">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">案例2: 航班数据集分析</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
