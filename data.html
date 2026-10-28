@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>统计学习-(讲义及案例) - 2&nbsp; 数据操作</title>
+<title>统计学习-讲义及案例 - 2&nbsp; 数据操作</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -159,7 +159,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">统计学习-(讲义及案例)</a> 
+      <a href="./">统计学习-讲义及案例</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -301,13 +301,13 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">5</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">mean</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.747044</code></pre>
+<pre><code>[1] 1.66927</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x  <span class="sc">%&gt;%</span>  mean  <span class="sc">%&gt;%</span> sqrt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1.747044</code></pre>
+<pre><code>[1] 1.66927</code></pre>
 </div>
 </div>
 <ul>
@@ -419,8 +419,8 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>x  <span class="sc">%&gt;%</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>{<span class="fu">rexp</span>(.[<span class="dv">1</span>],.[<span class="dv">3</span>])}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0.8831608 0.2326798 0.5729194 0.6265701 0.1169221 0.1586466 0.3043352
- [8] 1.1613024 0.6318917 0.3488828</code></pre>
+<pre><code> [1] 0.98217800 0.54318379 2.51758149 0.80943298 0.12892342 0.05437225
+ [7] 0.05498821 0.12416993 0.61959923 0.17979364</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -428,7 +428,7 @@ window.Quarto = {
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a> {<span class="fu">list</span>(<span class="at">rnum =</span> <span class="fu">rexp</span>(.[<span class="dv">1</span>], .[<span class="dv">3</span>]), <span class="at">m =</span> .[<span class="dv">2</span>])}  <span class="sc">%&gt;%</span> </span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a> {.<span class="sc">$</span>rnum[<span class="dv">1</span><span class="sc">:</span>.<span class="sc">$</span>m]}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3286991 0.2971814 0.5580121 0.7626838 0.4482081</code></pre>
+<pre><code>[1] 0.3184349 1.4603490 0.4190504 0.1009487 2.5114370</code></pre>
 </div>
 </div>
 <ul>
