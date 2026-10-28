@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>数据分析与可视化(讲义) - 4&nbsp; 案例1：钻石数据分析</title>
+<title>统计学习-(讲义及案例) - 4&nbsp; 案例1：钻石数据分析</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">数据分析与可视化(讲义)</a> 
+      <a href="./">统计学习-(讲义及案例)</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -255,10 +255,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
+<pre><code>Warning: 程辑包'ggplot2'是用R版本4.3.3 来建造的</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.3     ✔ readr     2.1.4
 ✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
 ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -269,10 +272,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ purrr::set_names() masks magrittr::set_names()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(diamonds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(diamonds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 10
   carat cut       color clarity depth table price     x     y     z
@@ -291,13 +294,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>线性回归</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> cut <span class="sc">+</span> color <span class="sc">+</span> clarity, <span class="at">data =</span> diamonds)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>diamondsNew <span class="ot">&lt;-</span> diamonds  <span class="sc">%&gt;%</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">add_residuals</span>(model, <span class="st">"lresid"</span>)  </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x=</span> carat, <span class="at">y =</span> lresid)) <span class="sc">+</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(price <span class="sc">~</span> cut <span class="sc">+</span> color <span class="sc">+</span> clarity, <span class="at">data =</span> diamonds)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>diamondsNew <span class="ot">&lt;-</span> diamonds  <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">add_residuals</span>(model, <span class="st">"lresid"</span>)  </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x=</span> carat, <span class="at">y =</span> lresid)) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -305,26 +308,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x =</span> lresid)) <span class="sc">+</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># geom_density()</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">50</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span>,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.7</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加正态分布参考曲线</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dnorm,</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span> <span class="fu">mean</span>(diamondsNew<span class="sc">$</span>lresid),</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">sd =</span> <span class="fu">sd</span>(diamondsNew<span class="sc">$</span>lresid)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"darkgreen"</span>,</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x =</span> lresid)) <span class="sc">+</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># geom_density()</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">50</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.7</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加正态分布参考曲线</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dnorm,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span> <span class="fu">mean</span>(diamondsNew<span class="sc">$</span>lresid),</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">sd =</span> <span class="fu">sd</span>(diamondsNew<span class="sc">$</span>lresid)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"darkgreen"</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -334,16 +337,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>diamondsPri <span class="ot">&lt;-</span> diamonds  <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">PricePer =</span> price<span class="sc">/</span>carat)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(PricePer <span class="sc">~</span> cut <span class="sc">+</span> color <span class="sc">+</span> clarity, <span class="at">data =</span> diamondsPri)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>diamondsNew <span class="ot">&lt;-</span> diamondsPri  <span class="sc">%&gt;%</span> </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">add_residuals</span>(model, <span class="st">"lresid"</span>)  </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x=</span> carat, <span class="at">y =</span> lresid)) <span class="sc">+</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>diamondsPri <span class="ot">&lt;-</span> diamonds  <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">PricePer =</span> price<span class="sc">/</span>carat)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(PricePer <span class="sc">~</span> cut <span class="sc">+</span> color <span class="sc">+</span> clarity, <span class="at">data =</span> diamondsPri)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>diamondsNew <span class="ot">&lt;-</span> diamondsPri  <span class="sc">%&gt;%</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">add_residuals</span>(model, <span class="st">"lresid"</span>)  </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x=</span> carat, <span class="at">y =</span> lresid)) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -351,26 +354,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x =</span> lresid)) <span class="sc">+</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># geom_density()</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">50</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.7</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加正态分布参考曲线</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dnorm,</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span> <span class="fu">mean</span>(diamondsNew<span class="sc">$</span>lresid),</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">sd =</span> <span class="fu">sd</span>(diamondsNew<span class="sc">$</span>lresid)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"darkgreen"</span>,</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x =</span> lresid)) <span class="sc">+</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># geom_density()</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">50</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"steelblue"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.7</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加正态分布参考曲线</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun =</span> dnorm,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">args =</span> <span class="fu">list</span>(</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">mean =</span> <span class="fu">mean</span>(diamondsNew<span class="sc">$</span>lresid),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">sd =</span> <span class="fu">sd</span>(diamondsNew<span class="sc">$</span>lresid)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"darkgreen"</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -389,9 +392,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="5.2.1" class="anchored" data-anchor-id="描述性统计发现反常识现象"><span class="header-section-number">5.2.1</span> 描述性统计发现反常识现象</h3>
 <p>不同cut, price线箱图的变化</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price))  <span class="sc">+</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price))  <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -402,9 +405,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>不同color, price线箱图的变化</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">y =</span> price))  <span class="sc">+</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> color, <span class="at">y =</span> price))  <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -415,9 +418,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>不同clarity, price线箱图的变化</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">y =</span> price))  <span class="sc">+</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> clarity, <span class="at">y =</span> price))  <span class="sc">+</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -430,9 +433,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="价格趋势分析" class="level3" data-number="5.2.2">
 <h3 data-number="5.2.2" class="anchored" data-anchor-id="价格趋势分析"><span class="header-section-number">5.2.2</span> 价格趋势分析</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -442,101 +445,111 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)  <span class="co"># 用于避免标签重叠</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置分析范围 (0.9-1.1克拉)</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>diamonds_1ct <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(carat, <span class="fl">0.9</span>, <span class="fl">1.1</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 创建精确到百分位的克拉分组</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">carat_centi =</span> <span class="fu">round</span>(carat, <span class="dv">2</span>),</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 标记关键锚定点</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_anchor =</span> <span class="fu">if_else</span>(carat_centi <span class="sc">==</span> <span class="fl">1.00</span>, <span class="st">"1.00克拉"</span>, <span class="st">"其他"</span>),</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 特别标记0.99克拉点</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_99 =</span> <span class="fu">if_else</span>(carat_centi <span class="sc">==</span> <span class="fl">0.99</span>, <span class="st">"0.99克拉"</span>, <span class="st">"其他"</span>)</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算每个0.01克拉分组的汇总数据</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>price_summary <span class="ot">&lt;-</span> diamonds_1ct <span class="sc">%&gt;%</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(carat_centi) <span class="sc">%&gt;%</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_price =</span> <span class="fu">mean</span>(price),</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_price =</span> <span class="fu">median</span>(price),</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 计算与1克拉的价格比率</span></span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_ratio =</span> avg_price <span class="sc">/</span> avg_price[carat_centi <span class="sc">==</span> <span class="fl">1.00</span>],</span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_ratio_label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(price_ratio, <span class="at">accuracy =</span> <span class="dv">1</span>)</span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算0.99克拉与1.00克拉的价格差异</span></span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>price_gap <span class="ot">&lt;-</span> price_summary <span class="sc">%&gt;%</span></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(carat_centi <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fl">0.99</span>, <span class="fl">1.00</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(carat_centi, avg_price) <span class="sc">%&gt;%</span></span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> carat_centi,</span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> avg_price,</span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"price_"</span></span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_difference =</span> price_1 <span class="sc">-</span> price_0<span class="fl">.99</span>,</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_ratio =</span> price_0<span class="fl">.99</span> <span class="sc">/</span> price_1</span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建阶梯变化可视化</span></span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(price_summary, <span class="fu">aes</span>(<span class="at">x =</span> carat_centi, <span class="at">y =</span> avg_price)) <span class="sc">+</span></span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 绘制价格阶梯线</span></span>
-<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_step</span>(<span class="at">direction =</span> <span class="st">"hv"</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
-<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加数据点</span></span>
-<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(price_summary, carat_centi <span class="sc">==</span> <span class="fl">1.00</span>), </span>
-<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">shape =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
-<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(price_summary, carat_centi <span class="sc">==</span> <span class="fl">0.99</span>), </span>
-<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">shape =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
-<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加价格比率标签</span></span>
-<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(</span>
-<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">filter</span>(price_summary, carat_centi <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fl">0.99</span>, <span class="fl">1.00</span>)),</span>
-<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(price_ratio_label, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, scales<span class="sc">::</span><span class="fu">dollar</span>(avg_price))),</span>
-<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">nudge_y =</span> <span class="dv">500</span>,</span>
-<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">segment.color =</span> <span class="st">"grey50"</span>,</span>
-<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">box.padding =</span> <span class="fl">0.5</span>,</span>
-<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">4</span></span>
-<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加参考线</span></span>
-<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">1.00</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加悬崖效应箭头</span></span>
-<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
-<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">0.99</span>, <span class="at">xend =</span> <span class="fl">1.00</span>, <span class="at">y =</span> price_gap<span class="sc">$</span>price_0<span class="fl">.99</span>, <span class="at">yend =</span> price_gap<span class="sc">$</span>price_0<span class="fl">.99</span>),</span>
-<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>, <span class="at">size =</span> <span class="fl">0.8</span></span>
-<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
-<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">1.00</span>, <span class="at">xend =</span> <span class="fl">1.00</span>, <span class="at">y =</span> price_gap<span class="sc">$</span>price_0<span class="fl">.99</span>, <span class="at">yend =</span> price_gap<span class="sc">$</span>price_1),</span>
-<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">"closed"</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">"inches"</span>)), <span class="at">size =</span> <span class="fl">1.2</span></span>
-<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加悬崖标签</span></span>
-<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.01</span>, <span class="at">y =</span> (price_gap<span class="sc">$</span>price_0<span class="fl">.99</span> <span class="sc">+</span> price_gap<span class="sc">$</span>price_1)<span class="sc">/</span><span class="dv">2</span>,</span>
-<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"价格悬崖: +"</span>, scales<span class="sc">::</span><span class="fu">dollar</span>(price_gap<span class="sc">$</span>price_difference),</span>
-<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"</span><span class="sc">\n</span><span class="st">("</span>, scales<span class="sc">::</span><span class="fu">percent</span>(<span class="dv">1</span> <span class="sc">-</span> price_gap<span class="sc">$</span>price_ratio), <span class="st">"溢价)"</span>),</span>
-<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
-<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 设置坐标轴和标签</span></span>
-<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fl">0.90</span>, <span class="fl">1.10</span>, <span class="at">by =</span> <span class="fl">0.02</span>),</span>
-<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a>                     <span class="at">minor_breaks =</span> <span class="fu">seq</span>(<span class="fl">0.90</span>, <span class="fl">1.10</span>, <span class="at">by =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
-<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()) <span class="sc">+</span></span>
-<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"钻石价格悬崖效应: 1克拉锚定点分析"</span>,</span>
-<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"0.99克拉钻石价格仅为1克拉钻石的70%-80%"</span>,</span>
-<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"carat"</span>,</span>
-<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"price"</span>) <span class="sc">+</span></span>
-<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">18</span>),</span>
-<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey90"</span>),</span>
-<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey95"</span>)</span>
-<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)  <span class="co"># 用于避免标签重叠</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置分析范围 (0.9-1.1克拉)</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>diamonds_1ct <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(carat, <span class="fl">0.9</span>, <span class="fl">1.1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 创建精确到百分位的克拉分组</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">carat_centi =</span> <span class="fu">round</span>(carat, <span class="dv">2</span>),</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 标记关键锚定点</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_anchor =</span> <span class="fu">if_else</span>(carat_centi <span class="sc">==</span> <span class="fl">1.00</span>, <span class="st">"1.00克拉"</span>, <span class="st">"其他"</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 特别标记0.99克拉点</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_99 =</span> <span class="fu">if_else</span>(carat_centi <span class="sc">==</span> <span class="fl">0.99</span>, <span class="st">"0.99克拉"</span>, <span class="st">"其他"</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算每个0.01克拉分组的汇总数据</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>price_summary <span class="ot">&lt;-</span> diamonds_1ct <span class="sc">%&gt;%</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(carat_centi) <span class="sc">%&gt;%</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_price =</span> <span class="fu">mean</span>(price),</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_price =</span> <span class="fu">median</span>(price),</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 计算与1克拉的价格比率</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_ratio =</span> avg_price <span class="sc">/</span> avg_price[carat_centi <span class="sc">==</span> <span class="fl">1.00</span>],</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_ratio_label =</span> scales<span class="sc">::</span><span class="fu">percent</span>(price_ratio, <span class="at">accuracy =</span> <span class="dv">1</span>)</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算0.99克拉与1.00克拉的价格差异</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>price_gap <span class="ot">&lt;-</span> price_summary <span class="sc">%&gt;%</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(carat_centi <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fl">0.99</span>, <span class="fl">1.00</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(carat_centi, avg_price) <span class="sc">%&gt;%</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> carat_centi,</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> avg_price,</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"price_"</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_difference =</span> price_1 <span class="sc">-</span> price_0<span class="fl">.99</span>,</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_ratio =</span> price_0<span class="fl">.99</span> <span class="sc">/</span> price_1</span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建阶梯变化可视化</span></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(price_summary, <span class="fu">aes</span>(<span class="at">x =</span> carat_centi, <span class="at">y =</span> avg_price)) <span class="sc">+</span></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 绘制价格阶梯线</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_step</span>(<span class="at">direction =</span> <span class="st">"hv"</span>, <span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加数据点</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(price_summary, carat_centi <span class="sc">==</span> <span class="fl">1.00</span>), </span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">shape =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">filter</span>(price_summary, carat_centi <span class="sc">==</span> <span class="fl">0.99</span>), </span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">shape =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加价格比率标签</span></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(</span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">filter</span>(price_summary, carat_centi <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fl">0.99</span>, <span class="fl">1.00</span>)),</span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(price_ratio_label, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>, scales<span class="sc">::</span><span class="fu">dollar</span>(avg_price))),</span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">nudge_y =</span> <span class="dv">500</span>,</span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">segment.color =</span> <span class="st">"grey50"</span>,</span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">box.padding =</span> <span class="fl">0.5</span>,</span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">4</span></span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加参考线</span></span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">1.00</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加悬崖效应箭头</span></span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">0.99</span>, <span class="at">xend =</span> <span class="fl">1.00</span>, <span class="at">y =</span> price_gap<span class="sc">$</span>price_0<span class="fl">.99</span>, <span class="at">yend =</span> price_gap<span class="sc">$</span>price_0<span class="fl">.99</span>),</span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">linetype =</span> <span class="st">"dotted"</span>, <span class="at">size =</span> <span class="fl">0.8</span></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">1.00</span>, <span class="at">xend =</span> <span class="fl">1.00</span>, <span class="at">y =</span> price_gap<span class="sc">$</span>price_0<span class="fl">.99</span>, <span class="at">yend =</span> price_gap<span class="sc">$</span>price_1),</span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">"closed"</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.2</span>, <span class="st">"inches"</span>)), <span class="at">size =</span> <span class="fl">1.2</span></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 添加悬崖标签</span></span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">1.01</span>, <span class="at">y =</span> (price_gap<span class="sc">$</span>price_0<span class="fl">.99</span> <span class="sc">+</span> price_gap<span class="sc">$</span>price_1)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"价格悬崖: +"</span>, scales<span class="sc">::</span><span class="fu">dollar</span>(price_gap<span class="sc">$</span>price_difference),</span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>                         <span class="st">"</span><span class="sc">\n</span><span class="st">("</span>, scales<span class="sc">::</span><span class="fu">percent</span>(<span class="dv">1</span> <span class="sc">-</span> price_gap<span class="sc">$</span>price_ratio), <span class="st">"溢价)"</span>),</span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 设置坐标轴和标签</span></span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fl">0.90</span>, <span class="fl">1.10</span>, <span class="at">by =</span> <span class="fl">0.02</span>),</span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>                     <span class="at">minor_breaks =</span> <span class="fu">seq</span>(<span class="fl">0.90</span>, <span class="fl">1.10</span>, <span class="at">by =</span> <span class="fl">0.01</span>)) <span class="sc">+</span></span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()) <span class="sc">+</span></span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"钻石价格悬崖效应: 1克拉锚定点分析"</span>,</span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"0.99克拉钻石价格仅为1克拉钻石的70%-80%"</span>,</span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"carat"</span>,</span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"price"</span>) <span class="sc">+</span></span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">18</span>),</span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey90"</span>),</span>
+<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"grey95"</span>)</span>
+<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in geom_segment(aes(x = 0.99, xend = 1, y = price_gap$price_0.99, : All aesthetics have length 1, but the data has 21 rows.
+ℹ Please consider using `annotate()` or provide this layer with data containing
+  a single row.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in geom_segment(aes(x = 1, xend = 1, y = price_gap$price_0.99, yend = price_gap$price_1), : All aesthetics have length 1, but the data has 21 rows.
+ℹ Please consider using `annotate()` or provide this layer with data containing
+  a single row.</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -545,69 +558,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 打印关键统计结果</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"==== 1克拉价格悬崖关键统计 ====</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 打印关键统计结果</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"==== 1克拉价格悬崖关键统计 ====</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>==== 1克拉价格悬崖关键统计 ====</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"0.99克拉平均价格:"</span>, scales<span class="sc">::</span><span class="fu">dollar</span>(price_gap<span class="sc">$</span>price_0<span class="fl">.99</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"0.99克拉平均价格:"</span>, scales<span class="sc">::</span><span class="fu">dollar</span>(price_gap<span class="sc">$</span>price_0<span class="fl">.99</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0.99克拉平均价格: $4,406.17 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"1.00克拉平均价格:"</span>, scales<span class="sc">::</span><span class="fu">dollar</span>(price_gap<span class="sc">$</span>price_1), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"1.00克拉平均价格:"</span>, scales<span class="sc">::</span><span class="fu">dollar</span>(price_gap<span class="sc">$</span>price_1), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1.00克拉平均价格: $5,241.59 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"价格差异:"</span>, scales<span class="sc">::</span><span class="fu">dollar</span>(price_gap<span class="sc">$</span>price_difference), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"价格差异:"</span>, scales<span class="sc">::</span><span class="fu">dollar</span>(price_gap<span class="sc">$</span>price_difference), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>价格差异: $835.42 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"价格比率:"</span>, scales<span class="sc">::</span><span class="fu">percent</span>(price_gap<span class="sc">$</span>price_ratio), </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"(0.99克拉价格是1克拉的"</span>, scales<span class="sc">::</span><span class="fu">percent</span>(price_gap<span class="sc">$</span>price_ratio), <span class="st">")</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"价格比率:"</span>, scales<span class="sc">::</span><span class="fu">percent</span>(price_gap<span class="sc">$</span>price_ratio), </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"(0.99克拉价格是1克拉的"</span>, scales<span class="sc">::</span><span class="fu">percent</span>(price_gap<span class="sc">$</span>price_ratio), <span class="st">")</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>价格比率: 84% (0.99克拉价格是1克拉的 84% )</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"样本数量 - 0.99克拉:"</span>, price_summary<span class="sc">$</span>n[price_summary<span class="sc">$</span>carat_centi <span class="sc">==</span> <span class="fl">0.99</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"样本数量 - 0.99克拉:"</span>, price_summary<span class="sc">$</span>n[price_summary<span class="sc">$</span>carat_centi <span class="sc">==</span> <span class="fl">0.99</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>样本数量 - 0.99克拉: 23 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"样本数量 - 1.00克拉:"</span>, price_summary<span class="sc">$</span>n[price_summary<span class="sc">$</span>carat_centi <span class="sc">==</span> <span class="fl">1.00</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"样本数量 - 1.00克拉:"</span>, price_summary<span class="sc">$</span>n[price_summary<span class="sc">$</span>carat_centi <span class="sc">==</span> <span class="fl">1.00</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>样本数量 - 1.00克拉: 1558 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置分析区间和关键锚点</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>analysis_range <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">1.1</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>anchor_points <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 数据预处理：过滤区间并创建锚定标签</span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>diamonds_analysis <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(carat, analysis_range[<span class="dv">1</span>], analysis_range[<span class="dv">2</span>])) <span class="sc">%&gt;%</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 创建锚定分类：将钻石标记为整数锚点附近(±0.01)</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">anchor_group =</span> <span class="fu">case_when</span>(</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">between</span>(carat, <span class="fl">0.99</span>, <span class="fl">1.01</span>) <span class="sc">~</span> <span class="st">"1.0ct锚点区"</span>,</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">between</span>(carat, <span class="fl">1.49</span>, <span class="fl">1.51</span>) <span class="sc">~</span> <span class="st">"1.5ct锚点区"</span>,</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">between</span>(carat, <span class="fl">1.99</span>, <span class="fl">2.01</span>) <span class="sc">~</span> <span class="st">"2.0ct锚点区"</span>,</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"非锚点区"</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 创建精确到百分位的克拉分组</span></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">carat_group =</span> <span class="fu">round</span>(carat, <span class="dv">2</span>)</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 价格曲线可视化（0.9-1.1克拉区间）</span></span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_analysis, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> anchor_group), <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">span =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> anchor_points, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"钻石价格悬崖效应分析 (0.9-1.1克拉区间)"</span>,</span>
-<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"红色虚线表示消费者心理锚定点"</span>,</span>
-<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"克拉重量"</span>, <span class="at">y =</span> <span class="st">"价格(美元)"</span>,</span>
-<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"关键锚定区域"</span>) <span class="sc">+</span></span>
-<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fl">0.9</span>, <span class="fl">1.1</span>, <span class="fl">0.02</span>)) <span class="sc">+</span></span>
-<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置分析区间和关键锚点</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>analysis_range <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">1.1</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>anchor_points <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 数据预处理：过滤区间并创建锚定标签</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>diamonds_analysis <span class="ot">&lt;-</span> diamonds <span class="sc">%&gt;%</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(carat, analysis_range[<span class="dv">1</span>], analysis_range[<span class="dv">2</span>])) <span class="sc">%&gt;%</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 创建锚定分类：将钻石标记为整数锚点附近(±0.01)</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">anchor_group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">between</span>(carat, <span class="fl">0.99</span>, <span class="fl">1.01</span>) <span class="sc">~</span> <span class="st">"1.0ct锚点区"</span>,</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">between</span>(carat, <span class="fl">1.49</span>, <span class="fl">1.51</span>) <span class="sc">~</span> <span class="st">"1.5ct锚点区"</span>,</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">between</span>(carat, <span class="fl">1.99</span>, <span class="fl">2.01</span>) <span class="sc">~</span> <span class="st">"2.0ct锚点区"</span>,</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"非锚点区"</span></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 创建精确到百分位的克拉分组</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">carat_group =</span> <span class="fu">round</span>(carat, <span class="dv">2</span>)</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 价格曲线可视化（0.9-1.1克拉区间）</span></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds_analysis, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> anchor_group), <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">span =</span> <span class="fl">0.2</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> anchor_points, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"钻石价格悬崖效应分析 (0.9-1.1克拉区间)"</span>,</span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"红色虚线表示消费者心理锚定点"</span>,</span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"克拉重量"</span>, <span class="at">y =</span> <span class="st">"价格(美元)"</span>,</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"关键锚定区域"</span>) <span class="sc">+</span></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fl">0.9</span>, <span class="fl">1.1</span>, <span class="fl">0.02</span>)) <span class="sc">+</span></span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -632,7 +645,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 : zero-width neighborhood. make span bigger</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Computation failed in `stat_smooth()`
+<pre><code>Warning: Failed to fit group -1.
 Caused by error in `predLoess()`:
 ! 外接函数调用时不能有NA/NaN/Inf(arg5)</code></pre>
 </div>
@@ -643,27 +656,27 @@ Caused by error in `predLoess()`:
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 关键锚定点价格对比分析</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>anchor_comparison <span class="ot">&lt;-</span> diamonds_analysis <span class="sc">%&gt;%</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(anchor_group <span class="sc">!=</span> <span class="st">"非锚点区"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(anchor_group, carat_group) <span class="sc">%&gt;%</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_price =</span> <span class="fu">mean</span>(price),</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 计算锚点两侧价格比率</span></span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(anchor_group) <span class="sc">%&gt;%</span></span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_ratio =</span> avg_price <span class="sc">/</span> <span class="fu">max</span>(avg_price)</span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 打印关键价格悬崖数据</span></span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>anchor_comparison <span class="sc">%&gt;%</span></span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(anchor_group, carat_group, avg_price, price_ratio) <span class="sc">%&gt;%</span></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(anchor_group, carat_group) <span class="sc">%&gt;%</span></span>
-<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(price_ratio <span class="sc">&lt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>  <span class="co"># 筛选低于锚点的价格</span></span>
-<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">price_ratio =</span> scales<span class="sc">::</span><span class="fu">percent</span>(price_ratio, <span class="at">accuracy =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 关键锚定点价格对比分析</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>anchor_comparison <span class="ot">&lt;-</span> diamonds_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(anchor_group <span class="sc">!=</span> <span class="st">"非锚点区"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(anchor_group, carat_group) <span class="sc">%&gt;%</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_price =</span> <span class="fu">mean</span>(price),</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 计算锚点两侧价格比率</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(anchor_group) <span class="sc">%&gt;%</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_ratio =</span> avg_price <span class="sc">/</span> <span class="fu">max</span>(avg_price)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 打印关键价格悬崖数据</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>anchor_comparison <span class="sc">%&gt;%</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(anchor_group, carat_group, avg_price, price_ratio) <span class="sc">%&gt;%</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(anchor_group, carat_group) <span class="sc">%&gt;%</span></span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(price_ratio <span class="sc">&lt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span>  <span class="co"># 筛选低于锚点的价格</span></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">price_ratio =</span> scales<span class="sc">::</span><span class="fu">percent</span>(price_ratio, <span class="at">accuracy =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 4
 # Groups:   anchor_group [1]
@@ -672,29 +685,29 @@ Caused by error in `predLoess()`:
 1 1.0ct锚点区         0.99     4406. 80%        
 2 1.0ct锚点区         1        5242. 95%        </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 1克拉锚定点详细分析（0.99ct vs 1.00ct）</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>one_carat_gap <span class="ot">&lt;-</span> diamonds_analysis <span class="sc">%&gt;%</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(carat_group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fl">0.99</span>, <span class="fl">1.00</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(carat_group) <span class="sc">%&gt;%</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_price =</span> <span class="fu">mean</span>(price),</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_price =</span> <span class="fu">median</span>(price),</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_ratio =</span> avg_price <span class="sc">/</span> <span class="fu">max</span>(avg_price),</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_gap =</span> <span class="fu">max</span>(avg_price) <span class="sc">-</span> avg_price</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 输出1克拉悬崖结果</span></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">==== 1克拉价格悬崖分析 ====</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 1克拉锚定点详细分析（0.99ct vs 1.00ct）</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>one_carat_gap <span class="ot">&lt;-</span> diamonds_analysis <span class="sc">%&gt;%</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(carat_group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fl">0.99</span>, <span class="fl">1.00</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(carat_group) <span class="sc">%&gt;%</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_price =</span> <span class="fu">mean</span>(price),</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_price =</span> <span class="fu">median</span>(price),</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_ratio =</span> avg_price <span class="sc">/</span> <span class="fu">max</span>(avg_price),</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">price_gap =</span> <span class="fu">max</span>(avg_price) <span class="sc">-</span> avg_price</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 输出1克拉悬崖结果</span></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">==== 1克拉价格悬崖分析 ====</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ==== 1克拉价格悬崖分析 ====</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>one_carat_gap <span class="sc">%&gt;%</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span>scales<span class="sc">::</span><span class="fu">comma</span>(.x, <span class="at">accuracy =</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>one_carat_gap <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span>scales<span class="sc">::</span><span class="fu">comma</span>(.x, <span class="at">accuracy =</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <thead>
@@ -732,10 +745,10 @@ Caused by error in `predLoess()`:
 <section id="控制color变量后的cut与price间关系分析" class="level3" data-number="5.2.3">
 <h3 data-number="5.2.3" class="anchored" data-anchor-id="控制color变量后的cut与price间关系分析"><span class="header-section-number">5.2.3</span> 控制color变量后的cut与price间关系分析</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(color <span class="sc">==</span> <span class="st">"D"</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price))  <span class="sc">+</span> </span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(color <span class="sc">==</span> <span class="st">"D"</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> price))  <span class="sc">+</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -745,10 +758,10 @@ Caused by error in `predLoess()`:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_split</span>(<span class="at">by =</span> color)  <span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="sc">~</span><span class="fu">ggplot</span>(.x, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y=</span>price)) <span class="sc">+</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">%&gt;%</span> </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_split</span>(<span class="at">by =</span> color)  <span class="sc">%&gt;%</span> </span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(<span class="sc">~</span><span class="fu">ggplot</span>(.x, <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y=</span>price)) <span class="sc">+</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]</code></pre>
 </div>
@@ -831,9 +844,9 @@ Caused by error in `predLoess()`:
 <section id="度量carat与price之间的关系" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="度量carat与price之间的关系"><span class="header-section-number">5.3</span> 度量carat与price之间的关系</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -846,11 +859,11 @@ Caused by error in `predLoess()`:
 <li>去噪</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(carat<span class="sc">&lt;</span><span class="fl">2.5</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>() <span class="sc">+</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>diamonds  <span class="sc">%&gt;%</span> </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(carat<span class="sc">&lt;</span><span class="fl">2.5</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>() <span class="sc">+</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</code></pre>
 </div>
@@ -863,14 +876,14 @@ Caused by error in `predLoess()`:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>diamondsNew  <span class="ot">&lt;-</span> diamonds  <span class="sc">%&gt;%</span> </span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(carat <span class="sc">&lt;</span> <span class="fl">2.5</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">lcarat =</span> <span class="fu">log2</span>(carat), <span class="at">lprice =</span> <span class="fu">log2</span>(price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>diamondsNew  <span class="ot">&lt;-</span> diamonds  <span class="sc">%&gt;%</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(carat <span class="sc">&lt;</span> <span class="fl">2.5</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">lcarat =</span> <span class="fu">log2</span>(carat), <span class="at">lprice =</span> <span class="fu">log2</span>(price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>diamondsNew <span class="sc">%&gt;%</span> </span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lcarat, <span class="at">y =</span> lprice)) <span class="sc">+</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>diamondsNew <span class="sc">%&gt;%</span> </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lcarat, <span class="at">y =</span> lprice)) <span class="sc">+</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -883,20 +896,20 @@ Caused by error in `predLoess()`:
 <li>建立线性回归模型</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>modellm <span class="ot">&lt;-</span> <span class="fu">lm</span>(lprice<span class="sc">~</span>lcarat, <span class="at">data =</span> diamondsNew)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>modellm <span class="ot">&lt;-</span> <span class="fu">lm</span>(lprice<span class="sc">~</span>lcarat, <span class="at">data =</span> diamondsNew)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> diamondsNew  <span class="sc">%&gt;%</span> </span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data_grid</span>(<span class="at">carat =</span> <span class="fu">seq_range</span>(carat, <span class="dv">20</span>))  <span class="sc">%&gt;%</span>   </span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">lcarat =</span> <span class="fu">log2</span>(carat))  <span class="sc">%&gt;%</span> </span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">add_predictions</span>(modellm, <span class="st">"lprice"</span>)  <span class="sc">%&gt;%</span> </span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">pricePred =</span> <span class="dv">2</span><span class="sc">^</span>lprice) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelr)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> diamondsNew  <span class="sc">%&gt;%</span> </span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data_grid</span>(<span class="at">carat =</span> <span class="fu">seq_range</span>(carat, <span class="dv">20</span>))  <span class="sc">%&gt;%</span>   </span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">lcarat =</span> <span class="fu">log2</span>(carat))  <span class="sc">%&gt;%</span> </span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="fu">add_predictions</span>(modellm, <span class="st">"lprice"</span>)  <span class="sc">%&gt;%</span> </span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">pricePred =</span> <span class="dv">2</span><span class="sc">^</span>lprice) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span> </span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(<span class="at">data =</span> grid, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> pricePred), <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_line</span>(<span class="at">data =</span> grid, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> pricePred), <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -907,11 +920,11 @@ Caused by error in `predLoess()`:
 </div>
 <p>残差分析</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>diamondsNew <span class="ot">&lt;-</span> diamondsNew  <span class="sc">%&gt;%</span> </span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">add_residuals</span>(modellm, <span class="st">"lresid"</span>)  </span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x=</span> carat, <span class="at">y =</span> lresid)) <span class="sc">+</span></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>diamondsNew <span class="ot">&lt;-</span> diamondsNew  <span class="sc">%&gt;%</span> </span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">add_residuals</span>(modellm, <span class="st">"lresid"</span>)  </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamondsNew, <span class="fu">aes</span>(<span class="at">x=</span> carat, <span class="at">y =</span> lresid)) <span class="sc">+</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_hex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -924,19 +937,19 @@ Caused by error in `predLoess()`:
 <li>cut color clarity与残差的关系图</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> diamondsNew, <span class="fu">aes</span>(cut, lresid)) <span class="sc">+</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> diamondsNew, <span class="fu">aes</span>(cut, lresid)) <span class="sc">+</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> diamondsNew, <span class="fu">aes</span>(color, lresid)) <span class="sc">+</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> diamondsNew, <span class="fu">aes</span>(color, lresid)) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> diamondsNew, <span class="fu">aes</span>(clarity, lresid)) <span class="sc">+</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> diamondsNew, <span class="fu">aes</span>(clarity, lresid)) <span class="sc">+</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>(<span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, p3, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, p3, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -946,10 +959,10 @@ Caused by error in `predLoess()`:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>mlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(lprice <span class="sc">~</span> lcarat <span class="sc">+</span> cut <span class="sc">+</span> color <span class="sc">+</span> clarity, <span class="at">data =</span> diamondsNew)</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>diamondsNew <span class="sc">%&gt;%</span> </span>
-<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data_grid</span>(cut, <span class="at">.model =</span> mlm) <span class="sc">%&gt;%</span> </span>
-<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="fu">add_predictions</span>(mlm, <span class="st">"prevalue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>mlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(lprice <span class="sc">~</span> lcarat <span class="sc">+</span> cut <span class="sc">+</span> color <span class="sc">+</span> clarity, <span class="at">data =</span> diamondsNew)</span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>diamondsNew <span class="sc">%&gt;%</span> </span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data_grid</span>(cut, <span class="at">.model =</span> mlm) <span class="sc">%&gt;%</span> </span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a><span class="fu">add_predictions</span>(mlm, <span class="st">"prevalue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 5
   cut       lcarat color clarity prevalue
@@ -962,9 +975,9 @@ Caused by error in `predLoess()`:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>diamondsNew  <span class="sc">%&gt;%</span> </span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(<span class="at">by =</span> clarity)  <span class="sc">%&gt;%</span> </span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">nNum =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>diamondsNew  <span class="sc">%&gt;%</span> </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(<span class="at">by =</span> clarity)  <span class="sc">%&gt;%</span> </span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">nNum =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 2
   by     nNum
@@ -980,9 +993,9 @@ Caused by error in `predLoess()`:
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>diamondsNew  <span class="sc">%&gt;%</span> </span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(<span class="at">by =</span> color)  <span class="sc">%&gt;%</span> </span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">nNum =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>diamondsNew  <span class="sc">%&gt;%</span> </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(<span class="at">by =</span> color)  <span class="sc">%&gt;%</span> </span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">nNum =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 2
   by     nNum
